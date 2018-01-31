@@ -1,32 +1,27 @@
 package com.click.store.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.click.store.R;
+import com.click.store.di.component.AppComponent;
 
 /**
  * @Author Wangjj
  * @Create 2017/12/21.
  * @Content
  */
-public class RankingFragment extends Fragment {
+public class RankingFragment extends BaseFragment {
 
-
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public int setLayout() {
+        return R.layout.fragment_ranking;
+    }
 
+    @Override
+    public void setupAcitivtyComponent(AppComponent appComponent) {
 
-        View view = inflater.inflate(R.layout.fragment_ranking,container,false);
-        return view;
+    }
 
+    @Override
+    public void init() {
 
     }
 
