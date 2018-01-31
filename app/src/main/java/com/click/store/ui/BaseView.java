@@ -1,15 +1,14 @@
 package com.click.store.ui;
 
 /**
- * Created by S on 2017/11/10.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 
 public interface BaseView {
 
-
-    void showLoading();
-
-    void dimissLoading();
-
+    void showLodading();
+    void  dimissLoading();
 
 }

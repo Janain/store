@@ -1,22 +1,24 @@
 package com.click.store.di.component;
 
+
 import com.click.store.data.http.ApiService;
-import com.click.store.di.moudle.AppModel;
-import com.click.store.di.moudle.HttpMoudule;
+import com.click.store.di.module.AppModule;
+import com.click.store.di.module.HttpModule;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
 /**
- * Created by S on 2017/11/23.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 
 @Singleton
-@Component(modules = {AppModel.class, HttpMoudule.class})
+@Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
 
+
     public ApiService getApiService();
-
-
 }

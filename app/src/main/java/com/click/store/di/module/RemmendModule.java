@@ -1,10 +1,13 @@
-package com.click.store.di.moudle;
+package com.click.store.di.module;
 
 import android.app.ProgressDialog;
+
+
 import com.click.store.data.RecommendModel;
 import com.click.store.data.http.ApiService;
 import com.click.store.presenter.contract.RecommendContract;
 import com.click.store.ui.fragment.RecommendFragment;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,13 +19,15 @@ import dagger.Provides;
 @Module
 public class RemmendModule {
 
+
+
     private RecommendContract.View mView;
 
+    public RemmendModule(RecommendContract.View view){
 
-    public RemmendModule(RecommendContract.View view) {
+
         this.mView = view;
     }
-
 
     @Provides
     public RecommendContract.View provideView(){
@@ -30,15 +35,23 @@ public class RemmendModule {
         return mView;
     }
 
+
+
     @Provides
     public RecommendModel privodeModel(ApiService apiService){
 
-        return new RecommendModel(apiService);
+        return  new  RecommendModel(apiService);
     }
+
+
 
     @Provides
     public ProgressDialog provideProgressDialog(RecommendContract.View view){
 
-        return new ProgressDialog(((RecommendFragment) view).getActivity());
+        return new ProgressDialog(((RecommendFragment)view).getActivity());
     }
+
+
+
+
 }

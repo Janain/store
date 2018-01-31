@@ -3,10 +3,12 @@ package com.click.store.bean;
 import java.util.List;
 
 /**
- * Created by S on 2017/11/21.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
-
 public class PageBean<T> {
+
 
     /**
      * hasMore : false

@@ -1,4 +1,4 @@
-package com.click.store.common.until;
+package com.click.store.ui.decoration;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 /**
  * @Author Wangjj
  * @Create 2017/12/21.

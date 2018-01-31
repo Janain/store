@@ -19,21 +19,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by S on 2017/11/21.
- *
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
-
-public class RecomendAppAdapter extends RecyclerView.Adapter <RecomendAppAdapter.ViewHolder> {
+public class RecomendAppAdatper extends RecyclerView.Adapter<RecomendAppAdatper.ViewHolder> {
 
     private Context mContext;
     private List<AppInfo> mDatas;
+
     private LayoutInflater mLayoutInflater;
 
-    public RecomendAppAdapter(Context context, List<AppInfo> datas) {
+    public RecomendAppAdatper(Context context, List<AppInfo> datas) {
+
         this.mDatas = datas;
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mLayoutInflater.inflate(R.layout.template_recomend_app, parent, false));
@@ -41,6 +44,7 @@ public class RecomendAppAdapter extends RecyclerView.Adapter <RecomendAppAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         AppInfo appInfo = mDatas.get(position);
 
         String baseImgUrl = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
@@ -48,13 +52,17 @@ public class RecomendAppAdapter extends RecyclerView.Adapter <RecomendAppAdapter
 
         holder.mTextTitle.setText(appInfo.getDisplayName());
         holder.mTextSize.setText((appInfo.getApkSize() / 1024 / 1024) + " MB");
+
     }
+
     @Override
     public int getItemCount() {
-        return mDatas.size();
+
+        return mDatas == null ? 0 : mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.img_icon)
         ImageView mImgIcon;
         @BindView(R.id.text_title)

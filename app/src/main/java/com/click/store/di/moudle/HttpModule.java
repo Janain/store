@@ -15,10 +15,12 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by S on 2017/11/23.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 @Module
-public class HttpMoudule {
+public class HttpModule {
 
 
     @Provides

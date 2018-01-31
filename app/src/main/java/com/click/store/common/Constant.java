@@ -1,8 +1,9 @@
 package com.click.store.common;
 
 /**
- * Created by S on 2017/11/23.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
-
 public class Constant {
 }

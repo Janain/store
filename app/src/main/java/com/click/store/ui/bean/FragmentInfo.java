@@ -1,13 +1,15 @@
 package com.click.store.ui.bean;
 
-
 /**
- * Created by S on 2017/11/10.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 
 public class FragmentInfo {
 
     private String title;
+
     private Class fragment;
 
     public FragmentInfo(String title, Class fragment) {

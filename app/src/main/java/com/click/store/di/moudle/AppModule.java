@@ -1,6 +1,6 @@
 package com.click.store.di.moudle;
 
-import com.click.store.AppAplication;
+import com.click.store.AppApplication;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -9,23 +9,25 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by S on 2017/11/23.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 @Module
-public class AppModel {
+public class AppModule {
 
 
-    public AppAplication mAplication;
+    public AppApplication mAplication;
 
-    public AppModel(AppAplication appAplication) {
+    public AppModule(AppApplication appApplication) {
 
-        this.mAplication = appAplication;
+        this.mAplication = appApplication;
 
     }
 
     @Provides
     @Singleton
-    public AppAplication provideAppAplication(){
+    public AppApplication provideAppAplication(){
 
         return mAplication;
     }

@@ -4,89 +4,108 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.click.store.R;
+import com.click.store.di.component.AppComponent;
 import com.click.store.ui.adapter.ViewPagerAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
- * Created by S on 2017/11/10.
- *
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends AppCompatActivity {
 
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.table_layout)
-    TabLayout tableLayout;
-    @BindView(R.id.viewpager)
-    ViewPager viewpager;
     @BindView(R.id.navigation_view)
-    NavigationView navigationView;
+    NavigationView mNavigationView;
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-    private View headView;
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.tool_bar)
+    Toolbar mToolBar;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
+
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void setupAcitivtyComponent(AppComponent appComponent) {
+    }
+
+    @Override
+    public void init() {
+
         initDrawerLayout();
-        initTableLayout();
+        initTablayout();
+
+    }
+
+    private void initTablayout() {
+
+        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(adapter.getCount());
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
     private void initDrawerLayout() {
-        headView = navigationView.getHeaderView(0);
-        headView.setOnClickListener(new View.OnClickListener() {
+
+        headerView = mNavigationView.getHeaderView(0);
+        headerView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "view:" + view, Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "headerView clicked", Toast.LENGTH_LONG).show();
             }
         });
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.menu_app_update:
-                        Toast.makeText(MainActivity.this, "update:" + item, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击了应用更新", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.menu_message:
-                        Toast.makeText(MainActivity.this, "message:" + item, Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_setting:
-                        Toast.makeText(MainActivity.this, "setting:" + item, Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
+                        Toast.makeText(MainActivity.this, "点击了消息", Toast.LENGTH_LONG).show();
                         break;
                 }
+
                 return false;
             }
         });
-        toolbar.inflateMenu(R.menu.toolbar_menu);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+
+        mToolBar.inflateMenu(R.menu.toolbar_menu);
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.open, R.string.close);
+
         drawerToggle.syncState();
-        drawerLayout.addDrawerListener(drawerToggle);
+
+        mDrawerLayout.addDrawerListener(drawerToggle);
 
     }
-
-    private void initTableLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewpager.setAdapter(viewPagerAdapter);
-        tableLayout.setupWithViewPager(viewpager);
-    }
-
 }

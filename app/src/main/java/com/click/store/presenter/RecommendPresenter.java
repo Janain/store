@@ -1,8 +1,10 @@
-package com.click.store.presenter.contract;
+package com.click.store.presenter;
+
 
 import com.click.store.bean.AppInfo;
 import com.click.store.bean.PageBean;
 import com.click.store.data.RecommendModel;
+import com.click.store.presenter.contract.RecommendContract;
 
 import javax.inject.Inject;
 
@@ -11,47 +13,49 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by S on 2017/11/22.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 
-public class RecommendPresenter implements RecommendContract.Presenter {
+public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
-    private RecommendModel mModel;
-
-    private RecommendContract.View mView;
     @Inject
-    public RecommendPresenter(RecommendContract.View view,RecommendModel model){
-        this.mView = view;
-        mModel = model;
-
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+        super(model, view);
     }
 
 
-    @Override
+
+
     public void requestDatas() {
 
-        mView.showLoading();
 
-        mModel.getApp(new Callback<PageBean<AppInfo>>() {
+        mView.showLodading();
+
+        mModel.getApps(new Callback<PageBean<AppInfo>>() {
             @Override
             public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
 
-                if(response != null){
-                    mView.showResult(response.body().getDatas());
+                if(response !=null){
 
-                }else{
-                    mView.showNoData();
+                    mView.showResult(response.body().getDatas());
                 }
+                else{
+                    mView.showNodata();
+                }
+
                 mView.dimissLoading();
+
             }
 
             @Override
             public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
+
                 mView.dimissLoading();
                 mView.showError(t.getMessage());
+
             }
         });
-
     }
 }
-

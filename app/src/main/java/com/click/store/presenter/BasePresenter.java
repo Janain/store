@@ -1,8 +1,32 @@
 package com.click.store.presenter;
 
+
+import com.click.store.ui.BaseView;
+
 /**
- * Created by S on 2017/11/10.
+ * @Author Wangjj
+ * @Create 2017/12/21.
+ * @Content
  */
 
-public interface BasePresenter {
+public class BasePresenter<M,V extends BaseView> {
+
+
+
+    protected M mModel;
+
+    protected V mView;
+
+
+
+    public BasePresenter(M m,V v){
+
+        this.mModel=m;
+        this.mView = v;
+
+    }
+
+
+
+
 }
