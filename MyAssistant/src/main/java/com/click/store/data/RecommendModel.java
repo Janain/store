@@ -6,6 +6,7 @@ import com.click.store.bean.PageBean;
 import com.click.store.data.http.ApiService;
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * @Author Wangjj
@@ -16,13 +17,13 @@ public class RecommendModel {
 
     private ApiService mApiService;
 
-    public RecommendModel(ApiService apiService){
+    public RecommendModel(ApiService apiService) {
 
-        this.mApiService  =apiService;
+        this.mApiService = apiService;
     }
 
 
-    public  void getApps(Callback<PageBean<AppInfo>> callback){
+    public Observable<PageBean<AppInfo>> getApps( ) {
 
 
 //
@@ -31,7 +32,8 @@ public class RecommendModel {
 //        ApiService apiService =manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
 
 
-        mApiService.getApps("{'page':0}").enqueue(callback);
+//        mApiService.getApps("{'page':0}").enqueue(callback);
+        return mApiService.getApps("{'page':0}");
 
     }
 

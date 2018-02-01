@@ -22,10 +22,9 @@ import butterknife.BindView;
 /**
  * @Author Wangjj
  * @Create 2017/12/21.
- * @Content
+ * @Content 2018/1/31 第13课
  */
 public class MainActivity extends BaseActivity {
-
 
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
@@ -40,10 +39,10 @@ public class MainActivity extends BaseActivity {
 
     private View headerView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
 
     @Override
     public int setLayout() {

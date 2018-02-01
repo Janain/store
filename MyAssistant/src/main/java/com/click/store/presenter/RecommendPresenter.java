@@ -11,6 +11,10 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @Author Wangjj
@@ -18,44 +22,44 @@ import retrofit2.Response;
  * @Content
  */
 
-public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
+public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
 
     @Inject
     public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
         super(model, view);
     }
 
-
-
-
     public void requestDatas() {
 
+        mModel.getApps()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<PageBean<AppInfo>>() {
 
-        mView.showLodading();
+                    @Override
+                    public void onStart() {
+                        mView.showLodading();
+                    }
 
-        mModel.getApps(new Callback<PageBean<AppInfo>>() {
-            @Override
-            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
+                    @Override
+                    public void onCompleted() {
+                        mView.dimissLoading();
+                    }
 
-                if(response !=null){
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.dimissLoading();
+                    }
 
-                    mView.showResult(response.body().getDatas());
-                }
-                else{
-                    mView.showNodata();
-                }
+                    @Override
+                    public void onNext(PageBean<AppInfo> response) {
+                        if (response != null) {
 
-                mView.dimissLoading();
-
-            }
-
-            @Override
-            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
-
-                mView.dimissLoading();
-                mView.showError(t.getMessage());
-
-            }
-        });
+                            mView.showResult(response.getDatas());
+                        } else {
+                            mView.showNodata();
+                        }
+                    }
+                });
     }
 }

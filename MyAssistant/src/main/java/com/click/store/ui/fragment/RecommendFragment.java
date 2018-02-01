@@ -7,13 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import com.click.store.R;
 import com.click.store.bean.AppInfo;
-import com.click.store.common.until.DividerItemDecoration;
 import com.click.store.di.component.AppComponent;
 import com.click.store.di.component.DaggerRecommendComponent;
 import com.click.store.di.module.RemmendModule;
 import com.click.store.presenter.RecommendPresenter;
 import com.click.store.presenter.contract.RecommendContract;
 import com.click.store.ui.adapter.RecomendAppAdatper;
+import com.click.store.ui.decoration.DividerItemDecoration;
+
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;

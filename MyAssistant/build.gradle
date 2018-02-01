@@ -37,6 +37,9 @@ dependencies {
     //butterknife
     compile 'com.jakewharton:butterknife:8.8.1'
     apt 'com.jakewharton:butterknife-compiler:8.8.1'
+    //rxjava
+    compile 'io.reactivex:rxjava:1.1.10'
+    compile 'io.reactivex:rxandroid:1.2.1'
     //retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
@@ -53,5 +56,7 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.6'
     compile 'com.google.dagger:dagger:2.6'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    compile 'com.eftimoff:android-pathview:1.0.8@aar'
 
 }
