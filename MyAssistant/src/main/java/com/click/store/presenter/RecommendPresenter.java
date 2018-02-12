@@ -1,65 +1,129 @@
 package com.click.store.presenter;
 
+import android.Manifest;
+import android.app.Activity;
 
 import com.click.store.bean.AppInfo;
 import com.click.store.bean.PageBean;
+import com.click.store.common.rx.RxHttpReponseCompat;
+import com.click.store.common.rx.subscriber.ProgressDialogSubcriber;
 import com.click.store.data.RecommendModel;
 import com.click.store.presenter.contract.RecommendContract;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.Observable;
+import rx.functions.Func1;
 
-/**
- * @Author Wangjj
- * @Create 2017/12/21.
- * @Content
- */
 
-public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
+
+
+
 
     @Inject
     public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
         super(model, view);
+
     }
+
+
+
+
+//    public void requestPermission(){
+//
+//
+//        RxPermissions rxPermissions = new RxPermissions((Activity) mContext);
+//
+//        rxPermissions.request(Manifest.permission.READ_PHONE_STATE).subscribe(new Action1<Boolean>() {
+//            @Override
+//            public void call(Boolean aBoolean) {
+//                if(aBoolean){
+//
+//                    mView.onRequestPermissonSuccess();
+//                }
+//                else{
+//
+//                    mView.onRequestPermissonError();
+//                }
+//            }
+//        });
+//
+//    }
+
+
+
 
     public void requestDatas() {
 
-        mModel.getApps()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PageBean<AppInfo>>() {
 
+        RxPermissions rxPermissions = new RxPermissions((Activity) mContext);
+
+        rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+                .flatMap(new Func1<Boolean, Observable<PageBean<AppInfo>>>() {
                     @Override
-                    public void onStart() {
-                        mView.showLodading();
-                    }
+                    public Observable<PageBean<AppInfo>>call(Boolean aBoolean) {
 
-                    @Override
-                    public void onCompleted() {
-                        mView.dimissLoading();
-                    }
+                        if(aBoolean){
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.dimissLoading();
-                    }
-
-                    @Override
-                    public void onNext(PageBean<AppInfo> response) {
-                        if (response != null) {
-
-                            mView.showResult(response.getDatas());
-                        } else {
-                            mView.showNodata();
+                            return  mModel.getApps().compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult());
                         }
+                        else{
+
+                            return Observable.empty();
+                        }
+
+
+                    }
+                }).subscribe(new ProgressDialogSubcriber<PageBean<AppInfo>>(mContext) {
+                    @Override
+                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                        mView.showResult(appInfoPageBean.getDatas());
                     }
                 });
+
+
+//        mModel.getApps()
+//
+//                .compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult())
+//                .subscribe(new ProgressDialogSubcriber<PageBean<AppInfo>>(mContext) {
+//
+//
+//                    @Override
+//                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+//                        mView.showResult(appInfoPageBean.getDatas());
+//                    }
+//
+//
+//                });
+
+
+
+//
+//        mModel.getApps(new Callback<PageBean<AppInfo>>() {
+//            @Override
+//            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
+//
+//                if(response !=null){
+//
+//                    mView.showResult(response.body().getDatas());
+//                }
+//                else{
+//                    mView.showNodata();
+//                }
+//
+//                mView.dimissLoading();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
+//
+//                mView.dimissLoading();
+//                mView.showError(t.getMessage());
+//
+//            }
+//        });
     }
 }

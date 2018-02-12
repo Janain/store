@@ -2,6 +2,7 @@ package com.click.store.data;
 
 
 import com.click.store.bean.AppInfo;
+import com.click.store.bean.BaseBean;
 import com.click.store.bean.PageBean;
 import com.click.store.data.http.ApiService;
 
@@ -15,27 +16,23 @@ import rx.Observable;
  */
 public class RecommendModel {
 
-    private ApiService mApiService;
+    private  ApiService mApiService;
 
-    public RecommendModel(ApiService apiService) {
+    public RecommendModel(ApiService apiService){
 
-        this.mApiService = apiService;
+        this.mApiService  =apiService;
     }
 
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
 
-    public Observable<PageBean<AppInfo>> getApps( ) {
-
-
-//
 //        HttpManager manager = new HttpManager();
 //
 //        ApiService apiService =manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
 
-
 //        mApiService.getApps("{'page':0}").enqueue(callback);
-        return mApiService.getApps("{'page':0}");
+
+        return  mApiService.getApps("{'page':0}");
 
     }
-
 
 }

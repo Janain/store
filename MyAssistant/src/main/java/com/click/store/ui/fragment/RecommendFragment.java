@@ -25,7 +25,6 @@ import butterknife.BindView;
  * @Content
  */
 public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
-
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
@@ -49,9 +48,12 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @Override
     public void init() {
         mPresenter.requestDatas();
+
+//        mPresenter.requestPermission();
     }
 
-    private void initRecycleView(List<AppInfo> datas) {
+    private void initRecycleView(List<AppInfo> datas){
+
 
         //为RecyclerView设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -62,7 +64,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         //动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdatper = new RecomendAppAdatper(getActivity(), datas);
+        mAdatper = new RecomendAppAdatper(getActivity(),datas);
 
         mRecyclerView.setAdapter(mAdatper);
 
@@ -70,18 +72,32 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
 
     @Override
     public void showResult(List<AppInfo> datas) {
-        initRecycleView(datas);
+
+        Toast.makeText(getActivity(),"小豆子好",Toast.LENGTH_LONG).show();
+        initRecycleView( datas);
     }
 
     @Override
     public void showNodata() {
 
-        Toast.makeText(getActivity(), "暂时无数据，请吃完饭再来", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"暂时无数据，请吃完饭再来",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showError(String msg) {
-        Toast.makeText(getActivity(), "服务器开小差了：" + msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"服务器开小差了："+msg,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissonSuccess() {
+
+        mPresenter.requestDatas();
+    }
+
+    @Override
+    public void onRequestPermissonError() {
+
+        Toast.makeText(getActivity(),"你已拒绝授权",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -93,7 +109,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     @Override
     public void dimissLoading() {
 
-        if (mProgressDialog.isShowing()) {
+        if(mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
         }
     }

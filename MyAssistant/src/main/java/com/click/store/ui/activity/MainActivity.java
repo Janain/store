@@ -1,6 +1,5 @@
 package com.click.store.ui.activity;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,17 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.click.store.R;
 import com.click.store.di.component.AppComponent;
 import com.click.store.ui.adapter.ViewPagerAdapter;
-
 import butterknife.BindView;
 
 /**
  * @Author Wangjj
  * @Create 2017/12/21.
- * @Content 2018/1/31 第13课
+ * @Content 2018/2/1 第16课
  */
 public class MainActivity extends BaseActivity {
 
@@ -38,11 +35,6 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPager;
 
     private View headerView;
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
 
     @Override
     public int setLayout() {

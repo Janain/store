@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import com.click.store.AppApplication;
 import com.click.store.di.component.AppComponent;
 import com.click.store.presenter.BasePresenter;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
-
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
